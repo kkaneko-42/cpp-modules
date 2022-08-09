@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Karen.hpp"
+#include "Harl.hpp"
 
 static void test_karen( std::string arg );
 
@@ -17,7 +17,7 @@ int main( int ac, char **av )
 
 static void test_karen( std::string arg )
 {
-	Karen karen;
+	Harl karen;
 
 	std::cout << "======= Test: " << arg << " =======" << std::endl;
 	karen.complain(arg);

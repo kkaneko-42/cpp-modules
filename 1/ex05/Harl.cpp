@@ -1,20 +1,20 @@
 #include <iostream>
-#include "Karen.hpp"
+#include "Harl.hpp"
 
-Karen::Karen( void )
+Harl::Harl( void )
 {
 	this->levels_[0] = "DEBUG";
 	this->levels_[1] = "INFO";
 	this->levels_[2] = "WARNING";
 	this->levels_[3] = "ERROR";
 
-	this->member_funcs_[0] = &Karen::debug;
-	this->member_funcs_[1] = &Karen::info;
-	this->member_funcs_[2] = &Karen::warning;
-	this->member_funcs_[3] = &Karen::error;
+	this->member_funcs_[0] = &Harl::debug;
+	this->member_funcs_[1] = &Harl::info;
+	this->member_funcs_[2] = &Harl::warning;
+	this->member_funcs_[3] = &Harl::error;
 }
 
-void Karen::complain( std::string level )
+void Harl::complain( std::string level )
 {
 	const size_t nb_levels = 4;
 	const std::string error_msg = level + ": No such level.";
@@ -33,7 +33,7 @@ void Karen::complain( std::string level )
 		(this->*member_funcs_[level_idx])();
 }
 
-void Karen::debug( void )
+void Harl::debug( void )
 {
 	const std::string msg = \
 "I love having extra bacon \
@@ -43,7 +43,7 @@ I really do!";
 	std::cout << msg << std::endl;
 }
 
-void Karen::info( void )
+void Harl::info( void )
 {
 	const std::string msg = \
 "I cannot believe adding extra bacon costs more money. You didn’t put \
@@ -52,7 +52,7 @@ enough bacon in my burger! If you did, I wouldn’t be asking for more!";
 	std::cout << msg << std::endl;
 }
 
-void Karen::warning( void )
+void Harl::warning( void )
 {
 	const std::string msg = \
 "I think I deserve to have some extra bacon for free. I’ve been coming for \
@@ -61,7 +61,7 @@ years whereas you started working here since last month.";
 	std::cout << msg << std::endl;
 }
 
-void Karen::error( void )
+void Harl::error( void )
 {
 	const std::string msg = \
 	"This is unacceptable! I want to speak to the manager now.";

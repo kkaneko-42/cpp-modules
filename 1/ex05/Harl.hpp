@@ -2,12 +2,12 @@
 # define KAREN_HPP
 # include <string>
 
-class Karen
+class Harl
 {
-	typedef void (Karen::*MemberFuncs)( void );
+	typedef void (Harl::*MemberFuncs)( void );
 
 	public:
-		Karen( void );
+		Harl( void );
 		void complain( std::string level );
 
 	private:
