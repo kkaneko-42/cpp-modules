@@ -1,5 +1,6 @@
 #ifndef SED_HPP
 # define SED_HPP
+# define USAGE "./a.out <filename> <sed_src> <sed_dst>"
 # include <string>
 
 std::string get_file_content(const std::string file_name);

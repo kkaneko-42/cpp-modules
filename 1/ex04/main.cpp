@@ -2,7 +2,7 @@
 #include <string>
 #include "sed.hpp"
 
-static void	validate_args( int ac, char **av);
+static void	validate_args( int ac, char **av );
 
 int main( int ac, char **av )
 {
@@ -15,11 +15,9 @@ int main( int ac, char **av )
 	return (0);
 }
 
-static void	validate_args( int ac, char **av)
+static void	validate_args( int ac, char **av )
 {
-	const std::string arg_err = "Argument error";
-
 	(void)av;
 	if (ac != 4)
-		exit_with_error(arg_err);
+		exit_with_error(USAGE);
 }

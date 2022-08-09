@@ -1,27 +1,19 @@
 #include <iostream>
 #include <string>
 
-static void	do_replace(
-	std::string &file_content, const std::string s1,
-	const std::string s2, size_t found_i);
-
 void replace_text(
 	std::string &file_content, const std::string s1, const std::string s2)
 {
-	size_t	found_i;
+	const std::size_t s1_len = s1.length();
+	const std::size_t s2_len = s2.length();
+	std::size_t i = 0;
 
-	found_i = file_content.find(s1);
-	while (found_i != (size_t)(-1))
-	{
-		do_replace(file_content, s1, s2, found_i);
-		found_i = file_content.find(s1);
+	while (i < file_content.length()) {
+		i = file_content.find(s1, i);
+		if (i == (std::size_t)-1)
+			break;
+		file_content.erase(i, s1_len);
+		file_content.insert(i, s2);
+		i += s2_len;
 	}
-}
-
-static void	do_replace(
-	std::string &str, const std::string s1,
-	const std::string s2, size_t found_i)
-{
-	str.erase(str.begin() + found_i, str.begin() + found_i + s1.size());
-	str.insert(found_i, s2.data());
 }
