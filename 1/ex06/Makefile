@@ -1,5 +1,5 @@
-NAME	:= karenFilter
-SRCS	:=	main.cpp Karen.cpp
+NAME	:= harlFilter
+SRCS	:=	main.cpp Harl.cpp
 INC_DIR := ./
 OBJ_DIR := ./objs
 OBJS	:= $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))

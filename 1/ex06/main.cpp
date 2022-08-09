@@ -1,10 +1,10 @@
 #include <iostream>
-#include "Karen.hpp"
+#include "Harl.hpp"
 
 int main( int ac, char **av )
 {
 	const std::string arg_err = "Argument error";
-	Karen karen;
+	Harl karen;
 
 	if (ac != 2)
 	{
