@@ -39,12 +39,12 @@ Point Point::operator -( const Point &rhs ) const
 	return (res);
 }
 
-Fixed &Point::getX( void ) const
+const Fixed &Point::getX( void ) const
 {
-	return (const_cast<Fixed&>(this->x));
+	return (this->x);
 }
 
-Fixed &Point::getY( void ) const
+const Fixed &Point::getY( void ) const
 {
-	return (const_cast<Fixed&>(this->y));
+	return (this->y);
 }

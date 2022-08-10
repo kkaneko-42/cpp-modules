@@ -3,14 +3,17 @@
 #include <sstream>
 #include <cstdlib>
 #include "Point.hpp"
+#define USAGE "./a.out <A.x> <A.y> <B.x> <B.y> <C.x> <C.y> <P.x> <P.y>"
 
 bool bsp( Point const &a, Point const &b, Point const &c, Point const &point );
 static float ft_stof( char *str );
 
 int main( int ac, char **av )
 {
-	if (ac != 9)
+	if (ac != 9) {
+		std::cerr << USAGE << std::endl;
 		return (1);
+	}
 
 	Point a(ft_stof(av[1]), ft_stof(av[2]));
 	Point b(ft_stof(av[3]), ft_stof(av[4]));
