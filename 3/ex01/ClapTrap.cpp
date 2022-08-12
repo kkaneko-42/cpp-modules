@@ -6,7 +6,7 @@ static void putAlreadyFaintedMsg( const std::string &name );
 
 ClapTrap::ClapTrap( void ) : name_("None"),
 							hp_(10), ep_(10),
-							attack_damage_(10)
+							attack_damage_(0)
 {
 	const std::string msg = ": Default constructor called";
 
@@ -23,7 +23,7 @@ ClapTrap::ClapTrap( const ClapTrap &src )
 
 ClapTrap::ClapTrap( const std::string &name ) : name_(name),
 												hp_(10), ep_(10),
-												attack_damage_(10)
+												attack_damage_(0)
 {
 	const std::string msg = ": Naming constructor called";
 

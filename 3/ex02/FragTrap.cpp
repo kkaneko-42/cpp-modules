@@ -9,7 +9,7 @@ FragTrap::FragTrap( void ) : ClapTrap()
 {
 	const std::string msg = ": Frag default constructor called";
 
-	this->setMembers("None", 100, 50, 20);
+	this->setMembers("None", 100, 100, 30);
 	std::cout << name_ << msg << std::endl;
 }
 
@@ -25,7 +25,7 @@ FragTrap::FragTrap( const std::string &name ) : ClapTrap(name)
 {
 	const std::string msg = ": Frag naming constructor called";
 
-	this->setMembers(name, 100, 50, 20);
+	this->setMembers(name, 100, 100, 30);
 	std::cout << name_ << msg << std::endl;
 }
 
