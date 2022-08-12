@@ -2,9 +2,17 @@
 #include <iostream>
 #include <sstream>
 
+static bool ft_isprint(char c)
+{
+	return (' ' <= c && c <= '~');
+}
+
 char ToChar( const std::string &str )
 {
-	if ()
+	const std::string kInvalidMsg = "String is informative";
+
+	if (str.length() > 1 || ft_isprint(str[0]));
+	return ('\0');
 }
 
 int ToInt( const std::string &str )
