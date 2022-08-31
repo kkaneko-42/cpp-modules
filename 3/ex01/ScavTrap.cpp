@@ -2,14 +2,10 @@
 #include <string>
 #include "ScavTrap.hpp"
 
-// static void putFaintedMsg( const std::string &name );
-// static void putAlreadyFaintedMsg( const std::string &name );
-
-ScavTrap::ScavTrap( void ) : ClapTrap()
+ScavTrap::ScavTrap( void ) : ClapTrap("None", 100, 50, 20)
 {
 	const std::string msg = ": Scav default constructor called";
 
-	this->setMembers("None", 100, 50, 20);
 	std::cout << name_ << msg << std::endl;
 }
 
@@ -17,15 +13,13 @@ ScavTrap::ScavTrap( const ScavTrap &src ) : ClapTrap(src)
 {
 	const std::string msg = ": Scav copy constructor called";
 
-	*this = src;
 	std::cout << name_ << msg << std::endl;
 }
 
-ScavTrap::ScavTrap( const std::string &name ) : ClapTrap(name)
+ScavTrap::ScavTrap( const std::string &name ) : ClapTrap(name, 100, 50, 20)
 {
 	const std::string msg = ": Scav naming constructor called";
 
-	this->setMembers(name, 100, 50, 20);
 	std::cout << name_ << msg << std::endl;
 }
 
@@ -38,50 +32,34 @@ ScavTrap::~ScavTrap( void )
 
 ScavTrap &ScavTrap::operator =( const ScavTrap &rhs )
 {
-	const std::string msg = ": Scav assignation operator called";
-
-	this->setMembers(rhs.name_, rhs.hp_, rhs.ep_, rhs.attack_damage_);
-	std::cout << name_ << msg << std::endl;
+	this->name_ = rhs.name_;
+	this->hp_ = rhs.hp_;
+	this->ep_ = rhs.ep_;
+	this->attack_damage_ = rhs.attack_damage_;
 
 	return (*this);
 }
 
-// void ScavTrap::attack( ScavTrap &target )
-// {
-// 	if (!this->isFine())
-// 	{
-// 		putAlreadyFaintedMsg(this->name_);
-// 		return ;
-// 	}
-
-// 	std::cout << "ScavTrap " << this->name_ << " attacks " << target.name_ + ", ";
-// 	std::cout << "causing " << this->attack_damage_ << " points of damage!" << std::endl;
-// 	target.takeDamage(this->attack_damage_);
-
-// 	this->ep_ -= 1;
-// 	if (!this->isFine())
-// 		putFaintedMsg(this->name_);
-// }
-
 void ScavTrap::attack( const std::string &target )
 {
+	if (!this->isFine())
+	{
+		std::cout << name_ << " has already fainted" << std::endl;
+		return;
+	}
 	std::cout << "ScavTrap " << this->name_ << " attacks " << target + ", ";
 	std::cout << "causing " << this->attack_damage_ << " points of damage!" << std::endl;
+	this->setEp(this->ep_ - 1);
 }
 
 void ScavTrap::guardGate( void )
 {
 	const std::string msg = " is now in Gate keeper mode";
 
+	if (!this->isFine())
+	{
+		std::cout << name_ << " has already fainted" << std::endl;
+		return;
+	}
 	std::cout << this->name_ << msg << std::endl;
 }
-
-// static void putFaintedMsg( const std::string &name )
-// {
-// 	std::cout << "ClapTrap " << name << " has fainted..." << std::endl;
-// }
-
-// static void putAlreadyFaintedMsg( const std::string &name )
-// {
-// 	std::cout << "ClapTrap " << name << " has already fainted" << std::endl;
-// }
