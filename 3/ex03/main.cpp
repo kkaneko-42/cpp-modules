@@ -30,19 +30,20 @@ static void funcTest(void)
 	DiamondTrap dummy("dummy");
 	DiamondTrap player("player");
 
-	while (dummy.isFine())
+	dummy.whoAmI();
+	while (dummy.ScavTrap::isFine())
 	{
 		std::cout << player << std::endl;
 		std::cout << dummy << std::endl;
 		player.attack("dummy");
-		dummy.takeDamage(15);
-		dummy.beRepaired(5);
+		dummy.ScavTrap::takeDamage(15);
+		dummy.ScavTrap::beRepaired(5);
 		dummy.guardGate();
 		dummy.highFivesGuys();
 	}
 	// When dummy is fainted
 	dummy.attack("player");
-	dummy.beRepaired(100);
+	dummy.ScavTrap::beRepaired(100);
 	dummy.guardGate();
 	dummy.highFivesGuys();
 }

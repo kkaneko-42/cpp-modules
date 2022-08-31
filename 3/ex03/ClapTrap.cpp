@@ -134,3 +134,8 @@ void ClapTrap::setHp( unsigned int hp )
 	if (hp == 0)
 		std::cout << this->name_ << " has fainted..." << std::endl;
 }
+
+void ClapTrap::setAttackDmg( unsigned int dmg )
+{
+	this->attack_damage_ = dmg;
+}

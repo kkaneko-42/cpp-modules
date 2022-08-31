@@ -30,6 +30,7 @@ class ClapTrap
 		unsigned int attack_damage_;
 		void setHp( unsigned int hp );
 		void setEp( unsigned int ep );
+		void setAttackDmg( unsigned int dmg );
 };
 
 std::ostream &operator <<( std::ostream &os, ClapTrap &ct );

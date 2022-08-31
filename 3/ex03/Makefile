@@ -6,7 +6,7 @@ OBJ_DIR := ./objs
 OBJS	:= $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
 DEPS 	:= $(OBJS:.o=.d)
 CC		:= c++
-FLAGS	:= -Wall -Wextra -Werror -Wshadow -Wno-shadow -std=c++98 -MMD -MP
+FLAGS	:= -Wall -Wextra -Werror -std=c++98 -MMD -MP
 
 $(NAME): $(OBJ_DIR) $(OBJS)
 	$(CC) $(FLAGS) $(OBJS) -o $@
