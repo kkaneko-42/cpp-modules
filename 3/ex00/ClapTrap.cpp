@@ -1,9 +1,6 @@
 #include <iostream>
 #include "ClapTrap.hpp"
 
-static void putFaintedMsg( const std::string &name );
-static void putAlreadyFaintedMsg( const std::string &name );
-
 ClapTrap::ClapTrap( void ) : name_("None"),
 							hp_(10), ep_(10),
 							attack_damage_(0)
@@ -47,60 +44,66 @@ ClapTrap &ClapTrap::operator =( const ClapTrap &rhs )
 	return (*this);
 }
 
-// void ClapTrap::attack( ClapTrap &target )
-// {
-// 	if (!this->isFine())
-// 	{
-// 		putAlreadyFaintedMsg(this->name_);
-// 		return ;
-// 	}
+std::ostream &operator <<( std::ostream &os, ClapTrap &ct )
+{
+	std::cout << "==== " << ct.getName() << "'s info ====" << std::endl;
+	std::cout << "HP: " << ct.getHp() << std::endl;
+	std::cout << "EP: " << ct.getEp() << std::endl;
+	return (os);
+}
 
-// 	std::cout << "ClapTrap " << this->name_ << " attacks " << target.name_ + ", ";
-// 	std::cout << "causing " << this->attack_damage_ << " points of damage!" << std::endl;
-// 	target.takeDamage(this->attack_damage_);
+std::string ClapTrap::getName( void )
+{
+	return (this->name_);
+}
 
-// 	this->ep_ -= 1;
-// 	if (!this->isFine())
-// 		putFaintedMsg(this->name_);
-// }
+unsigned int ClapTrap::getHp( void )
+{
+	return (this->hp_);
+}
+
+unsigned int ClapTrap::getEp( void )
+{
+	return (this->ep_);
+}
 
 void ClapTrap::attack( const std::string &target )
 {
+	if (!this->isFine())
+	{
+		std::cout << "ClapTrap " << name_ << " has already fainted" << std::endl;
+		return;
+	}
 	std::cout << "ClapTrap " << this->name_ << " attacks " << target + ", ";
 	std::cout << "causing " << this->attack_damage_ << " points of damage!" << std::endl;
+	this->setEp(this->ep_ - 1);
 }
 
 void ClapTrap::takeDamage( unsigned int amount )
 {
 	if (!this->isFine())
 	{
-		putAlreadyFaintedMsg(this->name_);
+		std::cout << "ClapTrap " << name_ << " has already fainted" << std::endl;
 		return ;
 	}
 
-	if (this->hp_ <= amount)
-		this->hp_ = 0;
-	else
-		this->hp_ -= amount;
-
 	std::cout << "ClapTrap " << this->name_ << " take damage " << amount << std::endl;
-	if (!this->isFine())
-		putFaintedMsg(this->name_);
+	if (this->hp_ <= amount)
+		amount = this->hp_;
+	this->setHp(this->hp_ - amount);
 }
 
 void ClapTrap::beRepaired( unsigned int amount )
 {
 	if (!this->isFine())
 	{
-		putAlreadyFaintedMsg(this->name_);
+		std::cout << "ClapTrap " << this->name_ << " has already fainted" << std::endl;
 		return ;
 	}
 
 	std::cout << "ClapTrap " << this->name_ << " repairs itself, ";
 	std::cout << "and get " << amount << " points" << std::endl;
-	this->ep_ -= 1;
-	if (!this->isFine())
-		putFaintedMsg(this->name_);
+	this->setEp(this->ep_ - 1);
 }
 
 bool ClapTrap::isFine( void ) const
@@ -111,12 +114,16 @@ bool ClapTrap::isFine( void ) const
 		return (true);
 }
 
-static void putFaintedMsg( const std::string &name )
+void ClapTrap::setEp( unsigned int ep )
 {
-	std::cout << "ClapTrap " << name << " has fainted..." << std::endl;
+	this->ep_ = ep;
+	if (ep == 0)
+		std::cout << "ClapTrap " << this->name_ << " has fainted..." << std::endl;
 }
 
-static void putAlreadyFaintedMsg( const std::string &name )
+void ClapTrap::setHp( unsigned int hp )
 {
-	std::cout << "ClapTrap " << name << " has already fainted" << std::endl;
+	this->hp_ = hp;
+	if (hp == 0)
+		std::cout << "ClapTrap " << this->name_ << " has fainted..." << std::endl;
 }
