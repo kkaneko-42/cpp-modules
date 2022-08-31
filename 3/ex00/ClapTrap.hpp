@@ -7,11 +7,6 @@
 class ClapTrap
 {
 	public:
-		const static std::string kDefaultName;
-		const static unsigned int kDefaultHp;
-		const static unsigned int kDefaultEp;
-		const static unsigned int kDefaultDmg;
-
 		ClapTrap( void );
 		ClapTrap( const ClapTrap &src );
 		ClapTrap( const std::string &name );
@@ -19,9 +14,9 @@ class ClapTrap
 
 		ClapTrap &operator =( const ClapTrap &rhs );
 
-		std::string getName( void );
-		unsigned int getHp( void );
-		unsigned int getEp( void );
+		std::string getName( void ) const;
+		unsigned int getHp( void ) const;
+		unsigned int getEp( void ) const;
 		void attack( const std::string &string );
 		void takeDamage( unsigned int amount );
 		void beRepaired( unsigned int amount );

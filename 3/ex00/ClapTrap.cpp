@@ -52,17 +52,17 @@ std::ostream &operator <<( std::ostream &os, ClapTrap &ct )
 	return (os);
 }
 
-std::string ClapTrap::getName( void )
+std::string ClapTrap::getName( void ) const
 {
 	return (this->name_);
 }
 
-unsigned int ClapTrap::getHp( void )
+unsigned int ClapTrap::getHp( void ) const
 {
 	return (this->hp_);
 }
 
-unsigned int ClapTrap::getEp( void )
+unsigned int ClapTrap::getEp( void ) const
 {
 	return (this->ep_);
 }
@@ -103,6 +103,7 @@ void ClapTrap::beRepaired( unsigned int amount )
 
 	std::cout << "ClapTrap " << this->name_ << " repairs itself, ";
 	std::cout << "and get " << amount << " points" << std::endl;
+	this->setHp(this->hp_ + amount);
 	this->setEp(this->ep_ - 1);
 }
 
