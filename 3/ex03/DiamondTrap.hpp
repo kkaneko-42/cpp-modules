@@ -18,16 +18,8 @@ class DiamondTrap : public FragTrap, public ScavTrap
 		virtual void attack( const std::string &target );
 		void whoAmI( void );
 
-	protected:
-		std::string name_;
-		unsigned int hp_;
-		unsigned int ep_;
-		unsigned int attack_damage_;
-
 	private:
-		void setDiamondMembers( const std::string &name,
-							unsigned int hp, unsigned int ep,
-							unsigned int attack_dmg );
+		std::string name_;
 };
 
 #endif

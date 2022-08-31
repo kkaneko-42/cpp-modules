@@ -2,7 +2,7 @@
 # define SCAVTRAP_HPP
 # include "ClapTrap.hpp"
 
-class ScavTrap : public virtual ClapTrap
+class ScavTrap : public ClapTrap
 {
 	public:
 		ScavTrap( void );
@@ -14,16 +14,6 @@ class ScavTrap : public virtual ClapTrap
 
 		virtual void attack( const std::string &name );
 		void guardGate( void );
-
-	protected:
-		const unsigned int kScavHp_;
-		const unsigned int kScavEp_;
-		const unsigned int kScavAttackDamage_;
-
-	private:
-		void setScavMembers( const std::string &name,
-					unsigned int hp, unsigned int ep,
-					unsigned int attack_dmg );
 };
 
 #endif

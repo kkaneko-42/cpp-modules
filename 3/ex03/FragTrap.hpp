@@ -1,8 +1,8 @@
-#ifndef FRAGTRAP_HPP
-# define FRAGTRAP_HPP
+#ifndef FragTRAP_HPP
+# define FragTRAP_HPP
 # include "ClapTrap.hpp"
 
-class FragTrap : public virtual ClapTrap
+class FragTrap : public ClapTrap
 {
 	public:
 		FragTrap( void );
@@ -14,16 +14,6 @@ class FragTrap : public virtual ClapTrap
 
 		virtual void attack( const std::string &name );
 		void highFivesGuys( void );
-
-	protected:
-		const unsigned int kFragHp_;
-		const unsigned int kFragEp_;
-		const unsigned int kFragAttackDamage_;
-
-	private:
-		void setFragMembers( const std::string &name,
-					unsigned int hp, unsigned int ep,
-					unsigned int attack_dmg );
 };
 
 #endif
