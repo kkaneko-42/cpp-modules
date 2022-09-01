@@ -14,6 +14,11 @@ class FragTrap : public virtual ClapTrap
 
 		virtual void attack( const std::string &name );
 		void highFivesGuys( void );
+
+		static const std::string kDefaultName;
+		static const unsigned int kDefaultHp;
+		static const unsigned int kDefaultEp;
+		static const unsigned int kDefaultAttackDmg;
 };
 
 #endif

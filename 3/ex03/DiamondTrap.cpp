@@ -1,32 +1,32 @@
 #include <iostream>
 #include "DiamondTrap.hpp"
 
-DiamondTrap::DiamondTrap( void ) : ClapTrap(), FragTrap(), ScavTrap()
+DiamondTrap::DiamondTrap( void ) :
+ClapTrap(ScavTrap::kDefaultName, FragTrap::kDefaultHp,
+	ScavTrap::kDefaultEp, FragTrap::kDefaultAttackDmg),
+name_(ClapTrap::name_ + "_clap_name")
 {
 	const std::string msg = ": Diamond default constructor called";
 
-	this->name_ = this->getName() + "_clap_name";
-	this->setHp(FragTrap::hp_);
-	this->setEp(ScavTrap::ep_);
-	this->setAttackDmg(FragTrap::attack_damage_);
 	std::cout << name_ << msg << std::endl;
 }
 
-DiamondTrap::DiamondTrap( const DiamondTrap &src ) : ClapTrap(src), FragTrap(), ScavTrap()
+DiamondTrap::DiamondTrap( const DiamondTrap &src ) :
+ClapTrap(src), ScavTrap(src), FragTrap(src),
+name_(ClapTrap::name_ + "_clap_name")
 {
 	const std::string msg = ": Diamond copy constructor called";
 
 	std::cout << name_ << msg << std::endl;
 }
 
-DiamondTrap::DiamondTrap( const std::string &name ) : ClapTrap(name), FragTrap(), ScavTrap()
+DiamondTrap::DiamondTrap( const std::string &name ) :
+ClapTrap(name, FragTrap::kDefaultHp,
+	ScavTrap::kDefaultEp, FragTrap::kDefaultAttackDmg),
+name_(ClapTrap::name_ + "_clap_name")
 {
 	const std::string msg = ": Diamond naming constructor called";
 
-	this->name_ = this->getName() + "_clap_name";
-	this->setHp(FragTrap::hp_);
-	this->setEp(ScavTrap::ep_);
-	this->setAttackDmg(FragTrap::attack_damage_);
 	std::cout << name << msg << std::endl;
 }
 
@@ -49,10 +49,10 @@ DiamondTrap &DiamondTrap::operator =( const DiamondTrap &rhs )
 
 void DiamondTrap::attack( const std::string &target )
 {
-	this->ScavTrap::attack(target);
+	ScavTrap::attack(target);
 }
 
 void DiamondTrap::whoAmI( void )
 {
-	std::cout << this->name_ << "'s clap name is " << ClapTrap::name_ << std::endl;
+	std::cout << name_ << "'s clap name is " << ClapTrap::name_ << std::endl;
 }

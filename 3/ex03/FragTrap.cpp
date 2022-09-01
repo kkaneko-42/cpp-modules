@@ -2,7 +2,12 @@
 #include <string>
 #include "FragTrap.hpp"
 
-FragTrap::FragTrap( void ) : ClapTrap("None", 100, 100, 30)
+const std::string FragTrap::kDefaultName = "None";
+const unsigned int FragTrap::kDefaultHp = 100;
+const unsigned int FragTrap::kDefaultEp = 100;
+const unsigned int FragTrap::kDefaultAttackDmg = 30;
+
+FragTrap::FragTrap( void ) : ClapTrap(kDefaultName, kDefaultHp, kDefaultEp, kDefaultAttackDmg)
 {
 	const std::string msg = ": Frag default constructor called";
 
@@ -16,7 +21,7 @@ FragTrap::FragTrap( const FragTrap &src ) : ClapTrap(src)
 	std::cout << name_ << msg << std::endl;
 }
 
-FragTrap::FragTrap( const std::string &name ) : ClapTrap(name, 100, 100, 30)
+FragTrap::FragTrap( const std::string &name ) : ClapTrap(name, kDefaultHp, kDefaultEp, kDefaultAttackDmg)
 {
 	const std::string msg = ": Frag naming constructor called";
 

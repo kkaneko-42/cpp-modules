@@ -2,7 +2,12 @@
 #include <string>
 #include "ScavTrap.hpp"
 
-ScavTrap::ScavTrap( void ) : ClapTrap("None", 100, 50, 20)
+const std::string ScavTrap::kDefaultName = "None";
+const unsigned int ScavTrap::kDefaultHp = 100;
+const unsigned int ScavTrap::kDefaultEp = 50;
+const unsigned int ScavTrap:: kDefaultAttackDmg = 20;
+
+ScavTrap::ScavTrap( void ) : ClapTrap(kDefaultName, kDefaultHp, kDefaultEp, kDefaultAttackDmg)
 {
 	const std::string msg = ": Scav default constructor called";
 
@@ -16,7 +21,7 @@ ScavTrap::ScavTrap( const ScavTrap &src ) : ClapTrap(src)
 	std::cout << name_ << msg << std::endl;
 }
 
-ScavTrap::ScavTrap( const std::string &name ) : ClapTrap(name, 100, 50, 20)
+ScavTrap::ScavTrap( const std::string &name ) : ClapTrap(name, kDefaultHp, kDefaultEp, kDefaultAttackDmg)
 {
 	const std::string msg = ": Scav naming constructor called";
 

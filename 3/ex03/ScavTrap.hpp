@@ -14,6 +14,11 @@ class ScavTrap : public virtual ClapTrap
 
 		virtual void attack( const std::string &name );
 		void guardGate( void );
+
+		static const std::string kDefaultName;
+		static const unsigned int kDefaultHp;
+		static const unsigned int kDefaultEp;
+		static const unsigned int kDefaultAttackDmg;
 };
 
 #endif
