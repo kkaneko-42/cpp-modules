@@ -5,7 +5,7 @@ Dog::Dog( void )
 {
 	const std::string kMsg = "Dog default constructor called";
 
-	this->type_ = "Dog";
+	this->type = "Dog";
 	std::cout << kMsg << std::endl;
 }
 
@@ -30,7 +30,7 @@ Dog &Dog::operator =( const Dog &rhs )
 
 	if (this != &rhs)
 	{
-		this->type_ = rhs.type_;
+		this->type = rhs.type;
 	}
 	std::cout << kMsg << std::endl;
 	return (*this);
@@ -40,5 +40,5 @@ void Dog::makeSound( void ) const
 {
 	const std::string sound = "bow wow!";
 
-	std::cout << this->type_ + ": " << sound << std::endl;
+	std::cout << this->type + ": " << sound << std::endl;
 }
