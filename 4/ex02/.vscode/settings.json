@@ -29,7 +29,7 @@
 		"string_view": "cpp",
 		"system_error": "cpp",
 		"tuple": "cpp",
-		"type_traits": "cpp",
+		"typetraits": "cpp",
 		"utility": "cpp",
 		"fstream": "cpp",
 		"initializer_list": "cpp",

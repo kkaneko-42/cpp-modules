@@ -26,12 +26,9 @@ Brain::~Brain( void )
 
 Brain &Brain::operator =( const Brain &rhs )
 {
-	if (this != &rhs)
+	for (size_t i = 0; i < BRAIN_SIZE; ++i)
 	{
-		for (size_t i = 0; i < 100; ++i)
-		{
-			this->ideas_[i] = rhs.ideas_[i];
-		}
+		this->ideas_[i] = rhs.ideas_[i];
 	}
 	return (*this);
 }

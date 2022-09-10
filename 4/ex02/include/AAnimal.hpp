@@ -17,7 +17,7 @@ class AAnimal
 		std::string getType( void ) const;
 
 	protected:
-		std::string type_;
+		std::string type;
 };
 
 #endif //AAnimal_HPP

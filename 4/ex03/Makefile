@@ -1,6 +1,6 @@
 NAME	:= a.out
 VPATH	:= ./:./src
-SRCS	:= main.cpp
+SRCS	:= main.cpp Character.cpp Ice.cpp Cure.cpp AMateria.cpp MateriaSource.cpp
 SRC_DIR := .
 INC_DIR := ./include
 OBJ_DIR := ./objs
