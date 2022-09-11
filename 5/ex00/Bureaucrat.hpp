@@ -8,6 +8,9 @@
 class Bureaucrat
 {
 	public:
+		static const int kHighestGrade;
+		static const int kLowestGrade;
+
 		Bureaucrat( void );
 		Bureaucrat( const Bureaucrat &src );
 		Bureaucrat( const std::string &name );

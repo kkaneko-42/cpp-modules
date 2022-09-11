@@ -2,7 +2,10 @@
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
 
-Bureaucrat::Bureaucrat( void ) : name_(""), grade_(150)
+const int Bureaucrat::kHighestGrade = 1;
+const int Bureaucrat::kLowestGrade = 150;
+
+Bureaucrat::Bureaucrat( void ) : name_(""), grade_(kLowestGrade)
 {
 	const std::string kMsg = "default constructor called";
 
@@ -16,7 +19,7 @@ Bureaucrat::Bureaucrat( const Bureaucrat &src ) : name_(src.getName()), grade_(s
 	std::cout << kMsg << std::endl;
 }
 
-Bureaucrat::Bureaucrat( const std::string &name ) : name_(name), grade_(150)
+Bureaucrat::Bureaucrat( const std::string &name ) : name_(name), grade_(kLowestGrade)
 {
 	const std::string kMsg = "Naming constructor called";
 
@@ -27,9 +30,9 @@ Bureaucrat::Bureaucrat( const std::string &name, const int grade ) : name_(name)
 {
 	const std::string kMsg = "Naming and Grading constructor called";
 
-	if (grade < 1)
+	if (grade < kHighestGrade)
 		throw Bureaucrat::GradeTooLowException(this->getName());
-	else if (grade > 150)
+	else if (grade > kLowestGrade)
 		throw Bureaucrat::GradeTooHighException(this->getName());
 	else
 		this->grade_ = grade;
@@ -40,9 +43,9 @@ Bureaucrat::Bureaucrat( const int grade ) : name_("")
 {
 	const std::string kMsg = "Grading constructor called";
 
-	if (grade < 1)
+	if (grade < kHighestGrade)
 		throw Bureaucrat::GradeTooLowException(this->getName());
-	else if (grade > 150)
+	else if (grade > kLowestGrade)
 		throw Bureaucrat::GradeTooHighException(this->getName());
 	else
 		this->grade_ = grade;
@@ -89,7 +92,7 @@ int Bureaucrat::getGrade( void ) const
 
 void Bureaucrat::Promote( void )
 {
-	if (this->getGrade() == 1)
+	if (this->getGrade() == kHighestGrade)
 		throw Bureaucrat::GradeIsOutOfRange(this->getName());
 	else
 		this->grade_ -= 1;
@@ -97,7 +100,7 @@ void Bureaucrat::Promote( void )
 
 void Bureaucrat::Demote( void )
 {
-	if (this->getGrade() == 150)
+	if (this->getGrade() == kLowestGrade)
 		throw Bureaucrat::GradeIsOutOfRange(this->getName());
 	else
 		this->grade_ += 1;

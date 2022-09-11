@@ -4,8 +4,8 @@
 
 Form::Form( void ) : name_(""),
 					is_signed_(false),
-					lowest_grade_to_sign_(1),
-					lowest_grade_to_exec_(1)
+					lowest_grade_to_sign_(Bureaucrat::kHighestGrade),
+					lowest_grade_to_exec_(Bureaucrat::kHighestGrade)
 {
 	const std::string kMsg = "Form default constructor called";
 
@@ -28,9 +28,9 @@ Form::Form( const std::string &name, const int sign_grade, const int exec_grade)
 	const int kSignGrade = this->getLowestGradeToSign();
 	const int kExecGrade = this->getLowestGradeToExec();
 
-	if (kSignGrade < 1 || kExecGrade < 1)
+	if (kSignGrade < Bureaucrat::kHighestGrade || kExecGrade < Bureaucrat::kHighestGrade)
 		throw Form::GradeTooHighException(name);
-	else if (kSignGrade > 150 || kExecGrade > 150)
+	else if (kSignGrade > Bureaucrat::kLowestGrade || kExecGrade > Bureaucrat::kLowestGrade)
 		throw Form::GradeTooLowException(name);
 
 }

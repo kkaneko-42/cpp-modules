@@ -1,32 +1,32 @@
 #include <iostream>
 #include "Bureaucrat.hpp"
 
-static void occf_test( void );
-static void promote_test( void );
-static void demote_test( void );
+static void occfTest( void );
+static void promoteTest( void );
+static void demoteTest( void );
 
 int main( void )
 {
-	occf_test();
-	promote_test();
-	demote_test();
+	occfTest();
+	promoteTest();
+	demoteTest();
 	return (0);
 }
 
-static void occf_test( void )
+static void occfTest( void )
 {
 	Bureaucrat default_construct;
 	Bureaucrat name_construct("kkaneko");
 	Bureaucrat grade_construct(42);
 	Bureaucrat name_and_grade_construct("kkaneko", 42);
-	Bureaucrat assign = name_construct;
+	Bureaucrat assigned = grade_construct;
 	Bureaucrat copy(grade_construct);
 
-	std::cout << assign << std::endl;
+	std::cout << assigned << std::endl;
 	std::cout << copy << std::endl;
 }
 
-static void promote_test( void )
+static void promoteTest( void )
 {
 	Bureaucrat kkaneko("kkaneko", 2);
 
@@ -44,7 +44,7 @@ static void promote_test( void )
 	}
 }
 
-static void demote_test( void )
+static void demoteTest( void )
 {
 	Bureaucrat kkaneko("kkaneko", 149);
 

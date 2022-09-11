@@ -34,7 +34,7 @@ Form::Form( const std::string &name, const std::string &target, const int sign_g
 
 	if (kSignGrade < 1 || kExecGrade < 1)
 		throw Form::GradeTooHighException(name);
-	else if (kSignGrade > 150 || kExecGrade > 150)
+	else if (kSignGrade > kLowestGrade || kExecGrade > kLowestGrade)
 		throw Form::GradeTooLowException(name);
 
 }

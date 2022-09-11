@@ -4,6 +4,9 @@
 
 static bool draw_shrubbery( std::ofstream &ofs );
 
+const int ShrubberyCreationForm::kRequireGradeLow = 145;
+const int ShrubberyCreationForm::kRequireGradeHigh = 137;
+
 ShrubberyCreationForm::ShrubberyCreationForm( void )
 	: Form("Shrubbery creation", "", 145, 137)
 {
@@ -53,13 +56,14 @@ void ShrubberyCreationForm::execute( Bureaucrat const &executer ) const
 
 	std::ofstream ofs;
 
-	ofs.open(kOutputFileName.c_str());
-	if (!ofs)
-		throw std::logic_error(kFileOpenError);
-	else if (executer.getGrade() > this->getLowestGradeToExec())
+	if (executer.getGrade() > this->getLowestGradeToExec())
 		throw Form::GradeTooLowException(executer.getName());
 	else if (this->getIsSigned() == false)
 		throw std::logic_error(kIsntSignedMsg);
+
+	ofs.open(kOutputFileName.c_str());
+	if (!ofs)
+		throw std::logic_error(kFileOpenError);
 	else if (draw_shrubbery(ofs))
 		throw std::logic_error(kWriteError);
 }

@@ -6,6 +6,9 @@
 class ShrubberyCreationForm : public Form
 {
 	public:
+		static const int kRequireGradeLow;
+		static const int kRequireGradeHigh;
+
 		ShrubberyCreationForm( void );
 		ShrubberyCreationForm( const ShrubberyCreationForm &src );
 		ShrubberyCreationForm( const std::string &target );
