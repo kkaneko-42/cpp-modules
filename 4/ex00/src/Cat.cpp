@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Cat.hpp"
 
-Cat::Cat( void )
+Cat::Cat( void ) : Animal("Cat")
 {
 	const std::string kMsg = "Cat default constructor called";
 
@@ -9,11 +9,10 @@ Cat::Cat( void )
 	std::cout << kMsg << std::endl;
 }
 
-Cat::Cat( const Cat &src ) : Animal()
+Cat::Cat( const Cat &src ) : Animal(src)
 {
 	const std::string kMsg = "Cat copy constructor called";
 
-	*this = src;
 	std::cout << kMsg << std::endl;
 }
 
@@ -28,10 +27,7 @@ Cat &Cat::operator =( const Cat &rhs )
 {
 	const std::string kMsg = "Cat assignation operator called";
 
-	if (this != &rhs)
-	{
-		this->type_ = rhs.type_;
-	}
+	this->type_ = rhs.type_;
 	std::cout << kMsg << std::endl;
 	return (*this);
 }

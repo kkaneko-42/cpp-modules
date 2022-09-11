@@ -9,11 +9,10 @@ Dog::Dog( void )
 	std::cout << kMsg << std::endl;
 }
 
-Dog::Dog( const Dog &src ) : Animal()
+Dog::Dog( const Dog &src ) : Animal(src)
 {
 	const std::string kMsg = "Dog copy constructor called";
 
-	*this = src;
 	std::cout << kMsg << std::endl;
 }
 
@@ -29,16 +28,14 @@ Dog &Dog::operator =( const Dog &rhs )
 	const std::string kMsg = "Dog assignation operator called";
 
 	if (this != &rhs)
-	{
 		this->type_ = rhs.type_;
-	}
 	std::cout << kMsg << std::endl;
 	return (*this);
 }
 
 void Dog::makeSound( void ) const
 {
-	const std::string sound = "bow wow!";
+	const std::string kSound = "bow wow!";
 
-	std::cout << this->type_ + ": " << sound << std::endl;
+	std::cout << this->type_ + ": " << kSound << std::endl;
 }

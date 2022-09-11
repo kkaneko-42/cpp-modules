@@ -5,7 +5,7 @@ Animal::Animal( void )
 {
 	const std::string kMsg = "Animal default constructor called";
 
-	this->type_ = "";
+	this->type_ = "none";
 	std::cout << kMsg << std::endl;
 }
 
@@ -17,11 +17,10 @@ Animal::Animal( const Animal &src )
 	std::cout << kMsg << std::endl;
 }
 
-Animal::Animal( const std::string &type )
+Animal::Animal( const std::string &type ) : type_(type)
 {
 	const std::string kMsg = "Animal naming constructor called";
 
-	this->type_ = type;
 	std::cout << kMsg << std::endl;
 }
 
