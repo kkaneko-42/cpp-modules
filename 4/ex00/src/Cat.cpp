@@ -5,7 +5,7 @@ Cat::Cat( void ) : Animal("Cat")
 {
 	const std::string kMsg = "Cat default constructor called";
 
-	this->type_ = "Cat";
+	this->type = "Cat";
 	std::cout << kMsg << std::endl;
 }
 
@@ -36,5 +36,5 @@ void Cat::makeSound( void ) const
 {
 	const std::string sound = "Mew mew";
 
-	std::cout << this->type_ + ": " << sound << std::endl;
+	std::cout << this->type + ": " << sound << std::endl;
 }

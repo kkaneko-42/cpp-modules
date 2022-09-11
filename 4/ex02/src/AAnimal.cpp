@@ -5,7 +5,7 @@ AAnimal::AAnimal( void )
 {
 	const std::string kMsg = "AAnimal default constructor called";
 
-	this->type_ = "";
+	this->type = "";
 	std::cout << kMsg << std::endl;
 }
 
@@ -21,7 +21,7 @@ AAnimal::AAnimal( const std::string &type )
 {
 	const std::string kMsg = "AAnimal naming constructor called";
 
-	this->type_ = type;
+	this->type = type;
 	std::cout << kMsg << std::endl;
 }
 
@@ -38,7 +38,7 @@ AAnimal &AAnimal::operator =( const AAnimal &rhs )
 
 	if (this != &rhs)
 	{
-		this->type_ = rhs.type_;
+		this->type = rhs.type;
 	}
 	std::cout << kMsg << std::endl;
 	return (*this);
@@ -48,10 +48,10 @@ void AAnimal::makeSound( void ) const
 {
 	const std::string sound = "Ahhhhh";
 
-	std::cout << this->type_ + ": " << sound << std::endl;
+	std::cout << this->type + ": " << sound << std::endl;
 }
 
 std::string AAnimal::getType( void ) const
 {
-	return (this->type_);
+	return (this->type);
 }

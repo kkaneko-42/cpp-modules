@@ -2,44 +2,56 @@
 #include "Animal.hpp"
 #include "Dog.hpp"
 #include "Cat.hpp"
-#include "AAnimal.hpp"
 
-void DefaultTest( void )
+static void mandatoryTest();
+static void leakTest();
+
+int main(void)
 {
-	const Animal* j = new Dog();
-	const Animal* i = new Cat();
-	// const AAnimal* k = new AAnimal();
-
-	delete j;//should not create a leak
-	delete i;
+	mandatoryTest();
+	leakTest();
+	return 0;
 }
 
-// void MyTest( void )
-// {
-// 	const size_t kArrayLen = 10;
-// 	Animal *animals = new Animal[kArrayLen];
-// 	Dog dogs[kArrayLen / 2];
-// 	Cat cats[kArrayLen / 2];
-// 	size_t i = 0;
-// 	size_t j = 0;
-
-// 	while (i < kArrayLen / 2)
-// 	{
-// 		animals[i] = dogs[i];
-// 		++i;
-// 	}
-// 	while (i < kArrayLen)
-// 	{
-// 		animals[i] = cats[j];
-// 		++i;
-// 		++j;
-// 	}
-
-// 	delete[] animals;
-// }
-
-int main()
+static void mandatoryTest(void)
 {
-	DefaultTest();
-	return 0;
+	const size_t kArrayLen = 10;
+	AAnimal **animals = new AAnimal*[kArrayLen];
+	Dog dogs[kArrayLen / 2];
+	Cat cats[kArrayLen / 2];
+	// AAnimal forbidden; // Should be error.
+	size_t i = 0;
+	size_t j = 0;
+
+	while (i < kArrayLen / 2)
+	{
+		animals[i] = &dogs[i];
+		++i;
+	}
+	while (i < kArrayLen)
+	{
+		animals[i] = &cats[j];
+		++i;
+		++j;
+	}
+
+	for (size_t k = 0; k < kArrayLen; ++k)
+	{
+		animals[k]->makeSound();
+	}
+	delete[] animals;
+}
+
+static void leakTest(void)
+{
+	std::cout << "=============== Leak test ====================" << std::endl;
+	const AAnimal* dog = new Dog();
+	const AAnimal* cat = new Cat();
+	Cat cat1;
+	Cat cat2;
+	Cat assigned = cat1;
+	assigned = cat2;
+
+	delete dog;
+	delete cat;
 }

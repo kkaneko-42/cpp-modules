@@ -37,7 +37,7 @@ Animal &Animal::operator =( const Animal &rhs )
 
 	if (this != &rhs)
 	{
-		this->type_ = rhs.type_;
+		this->type = rhs.type;
 	}
 	std::cout << kMsg << std::endl;
 	return (*this);
@@ -47,10 +47,10 @@ void Animal::makeSound( void ) const
 {
 	const std::string sound = "Ahhhhh";
 
-	std::cout << this->type_ + ": " << sound << std::endl;
+	std::cout << this->type + ": " << sound << std::endl;
 }
 
 std::string Animal::getType( void ) const
 {
-	return (this->type_);
+	return (this->type);
 }

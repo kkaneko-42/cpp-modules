@@ -3,10 +3,20 @@
 #include "Dog.hpp"
 #include "Cat.hpp"
 
-int main()
+static void mandatoryTest();
+static void leakTest();
+
+int main(void)
+{
+	mandatoryTest();
+	leakTest();
+	return 0;
+}
+
+static void mandatoryTest(void)
 {
 	const size_t kArrayLen = 10;
-	Animal *animals = new Animal[kArrayLen];
+	Animal **animals = new Animal*[kArrayLen];
 	Dog dogs[kArrayLen / 2];
 	Cat cats[kArrayLen / 2];
 	size_t i = 0;
@@ -14,16 +24,33 @@ int main()
 
 	while (i < kArrayLen / 2)
 	{
-		animals[i] = dogs[i];
+		animals[i] = &dogs[i];
 		++i;
 	}
 	while (i < kArrayLen)
 	{
-		animals[i] = cats[j];
+		animals[i] = &cats[j];
 		++i;
 		++j;
 	}
 
+	for (size_t k = 0; k < kArrayLen; ++k)
+	{
+		animals[k]->makeSound();
+	}
 	delete[] animals;
-	return 0;
+}
+
+static void leakTest(void)
+{
+	std::cout << "=============== Leak test ====================" << std::endl;
+	const Animal* dog = new Dog();
+	const Animal* cat = new Cat();
+	Cat cat1;
+	Cat cat2;
+	Cat assigned = cat1;
+	assigned = cat2;
+
+	delete dog;
+	delete cat;
 }

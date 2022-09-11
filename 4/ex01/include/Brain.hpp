@@ -1,5 +1,6 @@
 #ifndef BRAIN_HPP
 #define BRAIN_HPP
+#define BRAIN_SIZE 100
 
 #include <string>
 
@@ -16,7 +17,7 @@ class Brain
 		std::string getIdea( size_t index ) const;
 
 	private:
-		std::string ideas_[100];
+		std::string ideas_[BRAIN_SIZE];
 
 		void InitIdeas( void );
 };

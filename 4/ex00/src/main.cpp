@@ -1,22 +1,35 @@
 #include <iostream>
-#include "Animal.hpp"
 #include "Dog.hpp"
 #include "Cat.hpp"
+#include "WrongCat.hpp"
 
-int main()
+static void funcTest(void);
+
+int main(void)
+{
+	funcTest();
+}
+
+static void funcTest(void)
 {
 	const Animal* meta = new Animal();
-	const Animal* j = new Dog();
-	const Animal* i = new Cat();
+	const Animal* dog = new Dog();
+	const Animal* cat = new Cat();
+	const WrongAnimal* w_meta = new WrongAnimal();
+	const WrongAnimal* w_cat = new WrongCat();
 
-	std::cout << j->getType() << " " << std::endl;
-	std::cout << i->getType() << " " << std::endl;
-	i->makeSound(); //will output the cat sound!
-	j->makeSound();
+	std::cout << dog->getType() << " " << std::endl;
+	std::cout << cat->getType() << " " << std::endl;
+	std::cout << w_cat->getType() << " " << std::endl;
+	dog->makeSound(); //will output the cat sound!
+	cat->makeSound();
 	meta->makeSound();
+	w_cat->makeSound();
+	w_meta->makeSound();
 
 	delete meta;
-	delete j;
-	delete i;
-	return 0;
+	delete dog;
+	delete cat;
+	delete w_meta;
+	delete w_cat;
 }

@@ -5,7 +5,7 @@ Dog::Dog( void )
 {
 	const std::string kMsg = "Dog default constructor called";
 
-	this->type_ = "Dog";
+	this->type = "Dog";
 	std::cout << kMsg << std::endl;
 }
 

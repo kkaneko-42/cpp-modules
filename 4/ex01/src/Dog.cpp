@@ -5,7 +5,7 @@ Dog::Dog( void )
 {
 	const std::string kMsg = "Dog default constructor called";
 
-	this->type_ = "Dog";
+	this->type = "Dog";
 	this->brain_ = new Brain();
 	std::cout << kMsg << std::endl;
 }
@@ -30,13 +30,13 @@ Dog &Dog::operator =( const Dog &rhs )
 {
 	const std::string kMsg = "Dog assignation operator called";
 
-	if (this != &rhs)
+	this->type = rhs.type;
+	if (rhs.brain_ == NULL)
+		this->brain_ = NULL;
+	else
 	{
-		this->type_ = rhs.type_;
-		if (rhs.brain_ == NULL)
-			this->brain_ = NULL;
-		else
-			this->brain_ = new Brain(*(rhs.brain_));
+		delete this->brain_;
+		this->brain_ = new Brain(*(rhs.brain_));
 	}
 	std::cout << kMsg << std::endl;
 	return (*this);
@@ -46,5 +46,5 @@ void Dog::makeSound( void ) const
 {
 	const std::string sound = "bow wow!";
 
-	std::cout << this->type_ + ": " << sound << std::endl;
+	std::cout << this->type + ": " << sound << std::endl;
 }
