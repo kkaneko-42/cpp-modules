@@ -50,6 +50,7 @@ static void leakTest(void)
 	Cat cat2;
 	Cat assigned = cat1;
 	assigned = cat2;
+	assigned = assigned;
 
 	delete dog;
 	delete cat;
