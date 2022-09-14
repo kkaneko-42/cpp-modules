@@ -15,6 +15,14 @@ Intern::Intern( void )
 	std::cout << kMsg << std::endl;
 }
 
+Intern::Intern( const Intern &src )
+{
+	const std::string kMsg = "Intern copy constructor called";
+
+	(void)src;
+	std::cout << kMsg << std::endl;
+}
+
 Intern::~Intern( void )
 {
 	const std::string kMsg = "Intern destructor called";
@@ -22,7 +30,16 @@ Intern::~Intern( void )
 	std::cout << kMsg << std::endl;
 }
 
-Form *Intern::makeForm( const std::string &name, const std::string &target )
+Intern &Intern::operator =( const Intern &rhs )
+{
+	const std::string kMsg = "Intern assignation operator called";
+
+	(void)rhs;
+	std::cout << kMsg << std::endl;
+	return (*this);
+}
+
+Form *Intern::makeForm( const std::string &name, const std::string &target ) const
 {
 	const std::string kFormNames[3] = {"shrubbery creation",
 										"robotomy request",
@@ -31,13 +48,16 @@ Form *Intern::makeForm( const std::string &name, const std::string &target )
 									{makeChrubberyCreationForm,
 									makeRobotomyRequestForm,
 									makePresidentialPardonForm};
-
+	const std::string kCreatedMsg = "Intern creates " + name;
 	const std::string kDoesNotExistMsg = "Form <" + name + "> doesn't exist.";
 
-	for (int i = 0; i < 3; ++i)
+	for (std::size_t i = 0; i < 3; ++i)
 	{
 		if (name == kFormNames[i])
+		{
+			std::cout << kCreatedMsg << std::endl;
 			return ((*make_forms[i])(target));
+		}
 	}
 	std::cout << kDoesNotExistMsg << std::endl;
 	return (NULL);

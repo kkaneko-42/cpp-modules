@@ -7,9 +7,12 @@ class Intern
 {
 	public:
 		Intern( void );
-		virtual ~Intern( void );
+		Intern( const Intern &src );
+		~Intern( void );
 
-		Form *makeForm( const std::string &name, const std::string &target );
+		Intern &operator =( const Intern &rhs );
+
+		Form *makeForm( const std::string &name, const std::string &target ) const;
 };
 
 #endif //INTERN_HPP
