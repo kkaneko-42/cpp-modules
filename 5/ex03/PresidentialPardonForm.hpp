@@ -6,12 +6,13 @@
 class PresidentialPardonForm : public Form
 {
 	public:
+		static const int kRequireGradeSign;
+		static const int kRequireGradeExec;
+
 		PresidentialPardonForm( void );
 		PresidentialPardonForm( const PresidentialPardonForm &src );
 		PresidentialPardonForm( const std::string &target );
 		virtual ~PresidentialPardonForm( void );
-
-		PresidentialPardonForm &operator =( const PresidentialPardonForm &rhs );
 
 		virtual void execute( Bureaucrat const &executer ) const;
 };

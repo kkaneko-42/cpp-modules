@@ -101,8 +101,3 @@ void Form::beSigned( const Bureaucrat &bureaucrat )
 	else
 		this->is_signed_ = true;
 }
-
-void Form::execute( Bureaucrat const &executer ) const
-{
-	(void)executer;
-}

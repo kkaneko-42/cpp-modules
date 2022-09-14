@@ -10,6 +10,16 @@ class Form
 	public:
 		typedef Bureaucrat::GradeTooHighException GradeTooHighException;
 		typedef Bureaucrat::GradeTooLowException GradeTooLowException;
+		class NotSignedException : std::exception
+		{
+			public:
+				NotSignedException( const std::string &name );
+				virtual ~NotSignedException( void ) throw();
+				virtual const char *what( void ) const throw();
+			private:
+				std::string name_;
+				char *msg;
+		};
 
 		Form( void );
 		Form( const Form &src );

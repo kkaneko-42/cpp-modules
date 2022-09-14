@@ -31,9 +31,9 @@ Bureaucrat::Bureaucrat( const std::string &name, const int grade ) : name_(name)
 	const std::string kMsg = "Naming and Grading constructor called";
 
 	if (grade < kHighestGrade)
-		throw Bureaucrat::GradeTooLowException(this->getName());
-	else if (grade > kLowestGrade)
 		throw Bureaucrat::GradeTooHighException(this->getName());
+	else if (grade > kLowestGrade)
+		throw Bureaucrat::GradeTooLowException(this->getName());
 	else
 		this->grade_ = grade;
 	std::cout << kMsg << std::endl;
@@ -44,9 +44,9 @@ Bureaucrat::Bureaucrat( const int grade ) : name_("")
 	const std::string kMsg = "Grading constructor called";
 
 	if (grade < kHighestGrade)
-		throw Bureaucrat::GradeTooLowException(this->getName());
-	else if (grade > kLowestGrade)
 		throw Bureaucrat::GradeTooHighException(this->getName());
+	else if (grade > kLowestGrade)
+		throw Bureaucrat::GradeTooLowException(this->getName());
 	else
 		this->grade_ = grade;
 
@@ -93,7 +93,7 @@ int Bureaucrat::getGrade( void ) const
 void Bureaucrat::Promote( void )
 {
 	if (this->getGrade() == kHighestGrade)
-		throw Bureaucrat::GradeIsOutOfRange(this->getName());
+		throw Bureaucrat::GradeTooHighException(this->getName());
 	else
 		this->grade_ -= 1;
 }
@@ -101,34 +101,36 @@ void Bureaucrat::Promote( void )
 void Bureaucrat::Demote( void )
 {
 	if (this->getGrade() == kLowestGrade)
-		throw Bureaucrat::GradeIsOutOfRange(this->getName());
+		throw Bureaucrat::GradeTooLowException(this->getName());
 	else
 		this->grade_ += 1;
 }
 
 void Bureaucrat::signForm( Form &form ) const
 {
-	if (this->getGrade() > form.getLowestGradeToSign())
-	{
-		std::cout << this->getName() << " couldn't sign " << form.getName();
-		std::cout << " because his or her grade is too low." << std::endl;
-	}
-	else
+	try
 	{
 		form.beSigned(*this);
 		std::cout << this->getName() << " signed " << form.getName() << std::endl;
+	}
+	catch(const Bureaucrat::GradeTooLowException& e)
+	{
+		std::cout << this->getName() << " couldn't sign " << form.getName();
+		std::cout << " because his or her grade is too low." << std::endl;
 	}
 }
 
 void Bureaucrat::executeForm( Form const &form )
 {
-	const std::string kExecedMsg = this->getName() + " executed " + form.getName();
+	const std::string kExecutedMsg = this->getName() + " executed " + form.getName();
 
-	if (this->getGrade() > form.getLowestGradeToExec())
-		throw Form::GradeTooLowException(this->getName());
-	else
+	try
 	{
 		form.execute(*this);
-		std::cout << kExecedMsg << std::endl;
+		std::cout << kExecutedMsg << std::endl;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
 	}
 }

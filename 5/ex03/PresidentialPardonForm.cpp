@@ -2,8 +2,12 @@
 #include <cstdlib>
 #include "PresidentialPardonForm.hpp"
 
+const int PresidentialPardonForm::kRequireGradeSign = 25;
+const int PresidentialPardonForm::kRequireGradeExec = 5;
+
 PresidentialPardonForm::PresidentialPardonForm( void )
-	: Form("Presidential Pardon", "", 25, 5)
+	: Form("Presidential Pardon", "",
+	kRequireGradeSign, kRequireGradeExec)
 {
 	const std::string kMsg = "Shruberry constructor called";
 
@@ -11,7 +15,8 @@ PresidentialPardonForm::PresidentialPardonForm( void )
 }
 
 PresidentialPardonForm::PresidentialPardonForm( const PresidentialPardonForm &src )
-	: Form("Presidential Pardon", src.getTarget(), 25, 5)
+	: Form("Presidential Pardon", src.getTarget(),
+	kRequireGradeSign, kRequireGradeExec)
 {
 	const std::string kMsg = "Presidential copy constructor called";
 
@@ -19,20 +24,12 @@ PresidentialPardonForm::PresidentialPardonForm( const PresidentialPardonForm &sr
 }
 
 PresidentialPardonForm::PresidentialPardonForm( const std::string &target )
-	: Form("Presidential Pardon", target, 25, 5)
+	: Form("Presidential Pardon", target,
+	kRequireGradeSign, kRequireGradeExec)
 {
 	const std::string kMsg = "Presidential target constructor called";
 
 	std::cout << kMsg << std::endl;
-}
-
-PresidentialPardonForm &PresidentialPardonForm::operator =( const PresidentialPardonForm &rhs )
-{
-	const std::string kMsg = "Presidential assignation operator called";
-
-	(void)rhs;
-	std::cout << kMsg << std::endl;
-	return (*this);
 }
 
 PresidentialPardonForm::~PresidentialPardonForm( void )
@@ -44,10 +41,12 @@ PresidentialPardonForm::~PresidentialPardonForm( void )
 
 void PresidentialPardonForm::execute( Bureaucrat const &executer ) const
 {
-	const std::string kPardonedMsg = this->getTarget() + " has been pardoned by Zaphod Beeblebrox.";
+	const std::string kPardonedMsg = getTarget() + " has been pardoned by Zaphod Beeblebrox.";
 
-	if (executer.getGrade() > this->getLowestGradeToExec())
+	if (executer.getGrade() > getLowestGradeToExec())
 		throw Form::GradeTooLowException(executer.getName());
+	else if (getIsSigned() == false)
+		throw Form::NotSignedException(getName());
 	else
 		std::cout << kPardonedMsg << std::endl;
 }

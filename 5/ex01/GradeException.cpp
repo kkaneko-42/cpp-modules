@@ -29,31 +29,12 @@ Bureaucrat::GradeTooLowException::~GradeTooLowException( void ) throw()
 	delete[] msg;
 }
 
-Bureaucrat::GradeIsOutOfRange::GradeIsOutOfRange( const std::string &name )
-{
-		std::string str_msg = name + ": Grade is out of range.";
-
-	this->name_ = name;
-	msg = new char[str_msg.length() + 1];
-	strcpy(msg, str_msg.c_str());
-}
-
-Bureaucrat::GradeIsOutOfRange::~GradeIsOutOfRange( void ) throw()
-{
-	delete[] msg;
-}
-
 const char *Bureaucrat::GradeTooHighException::what( void ) const throw()
 {
 	return (msg);
 }
 
 const char *Bureaucrat::GradeTooLowException::what( void ) const throw()
-{
-	return (msg);
-}
-
-const char *Bureaucrat::GradeIsOutOfRange::what( void ) const throw()
 {
 	return (msg);
 }

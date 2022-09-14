@@ -1,9 +1,14 @@
 #include <iostream>
 #include <cstdlib>
+#include <ctime>
 #include "RobotomyRequestForm.hpp"
 
+const int RobotomyRequestForm::kRequireGradeSign = 72;
+const int RobotomyRequestForm::kRequireGradeExec = 45;
+
 RobotomyRequestForm::RobotomyRequestForm( void )
-	: Form("Robotomy Request", "", 72, 45)
+	: Form("Robotomy Request", "",
+	kRequireGradeSign, kRequireGradeExec)
 {
 	const std::string kMsg = "Shruberry constructor called";
 
@@ -11,7 +16,8 @@ RobotomyRequestForm::RobotomyRequestForm( void )
 }
 
 RobotomyRequestForm::RobotomyRequestForm( const RobotomyRequestForm &src )
-	: Form("Robotomy Request", src.getTarget(), 72, 45)
+	: Form("Robotomy Request", src.getTarget(),
+	kRequireGradeSign, kRequireGradeExec)
 {
 	const std::string kMsg = "Robotomy copy constructor called";
 
@@ -19,20 +25,12 @@ RobotomyRequestForm::RobotomyRequestForm( const RobotomyRequestForm &src )
 }
 
 RobotomyRequestForm::RobotomyRequestForm( const std::string &target )
-	: Form("Robotomy Request", target, 72, 45)
+	: Form("Robotomy Request", target,
+	kRequireGradeSign, kRequireGradeExec)
 {
 	const std::string kMsg = "Robotomy target constructor called";
 
 	std::cout << kMsg << std::endl;
-}
-
-RobotomyRequestForm &RobotomyRequestForm::operator =( const RobotomyRequestForm &rhs )
-{
-	const std::string kMsg = "Robotomy assignation operator called";
-
-	(void)rhs;
-	std::cout << kMsg << std::endl;
-	return (*this);
 }
 
 RobotomyRequestForm::~RobotomyRequestForm( void )
@@ -44,15 +42,15 @@ RobotomyRequestForm::~RobotomyRequestForm( void )
 
 void RobotomyRequestForm::execute( Bureaucrat const &executer ) const
 {
-	const std::string kIsntSignedMsg = this->getName() + ": Is not signed.";
-	const std::string kSuccessMsg = this->getTarget() + " has been robotomized!";
-	const std::string kFailMsg = this->getTarget() + "'s robotomization failed...";
+	const std::string kSuccessMsg = getTarget() + " has been robotomized!";
+	const std::string kFailMsg = getTarget() + "'s robotomization failed...";
 	const std::string kDrillNoise = "Rizzz, bzzzzzz";
 
-	if (executer.getGrade() > this->getLowestGradeToExec())
+	srand(time(NULL));
+	if (executer.getGrade() > getLowestGradeToExec())
 		throw Form::GradeTooLowException(executer.getName());
-	else if (this->getIsSigned() == false)
-		throw std::logic_error(kIsntSignedMsg);
+	else if (getIsSigned() == false)
+		throw Form::NotSignedException(getName());
 	else
 	{
 		std::cout << kDrillNoise << std::endl;

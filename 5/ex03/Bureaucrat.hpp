@@ -10,6 +10,9 @@ class Form;
 class Bureaucrat
 {
 	public:
+		static const int kHighestGrade;
+		static const int kLowestGrade;
+
 		Bureaucrat( void );
 		Bureaucrat( const Bureaucrat &src );
 		Bureaucrat( const std::string &name );
@@ -42,17 +45,6 @@ class Bureaucrat
 			public:
 				GradeTooLowException( const std::string &name );
 				virtual ~GradeTooLowException( void ) throw();
-				virtual const char *what( void ) const throw();
-			private:
-				std::string name_;
-				char *msg;
-		};
-
-		class GradeIsOutOfRange : public std::exception
-		{
-			public:
-				GradeIsOutOfRange( const std::string &name );
-				virtual ~GradeIsOutOfRange( void ) throw();
 				virtual const char *what( void ) const throw();
 			private:
 				std::string name_;

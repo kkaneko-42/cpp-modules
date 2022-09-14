@@ -2,13 +2,15 @@
 #include <fstream>
 #include "ShrubberyCreationForm.hpp"
 
-static bool draw_shrubbery( std::ofstream &ofs );
+static bool copyTarget( const std::string &target_name, std::string &content );
+static bool draw_shrubbery( const std::string &output_name, const std::string &target_content );
 
-const int ShrubberyCreationForm::kRequireGradeLow = 145;
-const int ShrubberyCreationForm::kRequireGradeHigh = 137;
+const int ShrubberyCreationForm::kRequireGradeSign = 145;
+const int ShrubberyCreationForm::kRequireGradeExec = 137;
 
 ShrubberyCreationForm::ShrubberyCreationForm( void )
-	: Form("Shrubbery creation", "", 145, 137)
+	: Form("Shrubbery creation", "",
+	kRequireGradeSign, kRequireGradeExec)
 {
 	const std::string kMsg = "Shruberry constructor called";
 
@@ -16,7 +18,8 @@ ShrubberyCreationForm::ShrubberyCreationForm( void )
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm( const ShrubberyCreationForm &src )
-	: Form("Shrubbery creation", src.getTarget(), 145, 137)
+	: Form("Shrubbery creation", src.getTarget(),
+	kRequireGradeSign, kRequireGradeExec)
 {
 	const std::string kMsg = "Shrubbery copy constructor called";
 
@@ -24,20 +27,12 @@ ShrubberyCreationForm::ShrubberyCreationForm( const ShrubberyCreationForm &src )
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm( const std::string &target )
-	: Form("Shrubbery creation", target, 145, 137)
+	: Form("Shrubbery creation", target,
+	kRequireGradeSign, kRequireGradeExec)
 {
 	const std::string kMsg = "Shrubbery target constructor called";
 
 	std::cout << kMsg << std::endl;
-}
-
-ShrubberyCreationForm &ShrubberyCreationForm::operator =( const ShrubberyCreationForm &rhs )
-{
-	const std::string kMsg = "Shrubbery assignation operator called";
-
-	(void)rhs;
-	std::cout << kMsg << std::endl;
-	return (*this);
 }
 
 ShrubberyCreationForm::~ShrubberyCreationForm( void )
@@ -49,39 +44,61 @@ ShrubberyCreationForm::~ShrubberyCreationForm( void )
 
 void ShrubberyCreationForm::execute( Bureaucrat const &executer ) const
 {
-	const std::string kIsntSignedMsg = this->getName() + ": Is not signed.";
-	const std::string kOutputFileName = this->getTarget() + "_shrubbery";
-	const std::string kFileOpenError = this->getTarget() + ": File open error.";
-	const std::string kWriteError = this->getTarget() + ": Write error.";
+	const std::string target = getTarget();
+	const std::string kOutputFilename = target + "_shrubbery";
+	const std::string kSystemErrorMsg = target + ": System error.";
+	std::string content;
 
-	std::ofstream ofs;
-
-	if (executer.getGrade() > this->getLowestGradeToExec())
+	if (executer.getGrade() > getLowestGradeToExec())
 		throw Form::GradeTooLowException(executer.getName());
-	else if (this->getIsSigned() == false)
-		throw std::logic_error(kIsntSignedMsg);
-
-	ofs.open(kOutputFileName.c_str());
-	if (!ofs)
-		throw std::logic_error(kFileOpenError);
-	else if (draw_shrubbery(ofs))
-		throw std::logic_error(kWriteError);
+	else if (getIsSigned() == false)
+		throw Form::NotSignedException(getName());
+	else if (copyTarget(target, content) || draw_shrubbery(kOutputFilename, content))
+		throw std::runtime_error(kSystemErrorMsg);
 }
 
-static bool draw_shrubbery( std::ofstream &ofs )
+static bool copyTarget( const std::string &target_name, std::string &content )
+{
+	std::ifstream target;
+	std::string buf;
+
+	target.open(target_name.c_str(), std::ios::in);
+	// Not an error if target file is not exists
+	if (!target)
+		return (false);
+
+	while (!target.eof())
+	{
+		std::getline(target, buf);
+		if (target.fail())
+			return (true);
+		content += buf + "\n";
+	}
+
+	return (false);
+}
+
+static bool draw_shrubbery( const std::string &output_name, const std::string &target_content )
 {
 	const std::string kResourseFile = "shrubbery.txt";
 	std::ifstream resource;
+	std::ofstream output;
 	std::string buf;
 
 	resource.open(kResourseFile.c_str(), std::ios::in);
 	if (!resource)
 		return (true);
+	output.open(output_name.c_str(), std::ios::out);
+	if (!output)
+		return (true);
 
+	output << target_content;
 	while (!resource.eof())
 	{
 		std::getline(resource, buf);
-		ofs << buf << std::endl;
+		if (resource.fail())
+			return (true);
+		output << buf << std::endl;
 	}
 
 	return (false);

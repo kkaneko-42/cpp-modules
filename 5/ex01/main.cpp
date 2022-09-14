@@ -40,10 +40,12 @@ static void occf_test( void )
 static void beSignedTest( void )
 {
 	Form form("order", 42, 42);
-	Bureaucrat ok("ok", 42);
-	Bureaucrat ko("ko", 43);
+	Bureaucrat ok("kkaneko_ok", 42);
+	Bureaucrat ko("kkaneko_ko", 43);
 
 	std::cout << form << std::endl;
+	std::cout << "##################" << std::endl;
+	std::cout << ko << std::endl;
 	try
 	{
 		form.beSigned(ko);
@@ -52,8 +54,10 @@ static void beSignedTest( void )
 	{
 		std::cerr << e.what() << std::endl;;
 	}
-
 	std::cout << form << std::endl;
+
+	std::cout << "##################" << std::endl;
+	std::cout << ok << std::endl;
 	try
 	{
 		form.beSigned(ok);
@@ -62,8 +66,8 @@ static void beSignedTest( void )
 	{
 		std::cerr << e.what() << std::endl;;
 	}
-
 	std::cout << form << std::endl;
+	std::cout << "##################" << std::endl;
 }
 
 static void signFormTest( void )
@@ -73,8 +77,13 @@ static void signFormTest( void )
 	Bureaucrat ko("ko", 2);
 
 	std::cout << form << std::endl;
+	std::cout << "##################" << std::endl;
+	std::cout << ko << std::endl;
 	ko.signForm(form);
 	std::cout << form << std::endl;
+	std::cout << "##################" << std::endl;
+	std::cout << ok << std::endl;
 	ok.signForm(form);
 	std::cout << form << std::endl;
+	std::cout << "##################" << std::endl;
 }

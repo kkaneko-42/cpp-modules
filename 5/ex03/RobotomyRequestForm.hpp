@@ -6,12 +6,13 @@
 class RobotomyRequestForm : public Form
 {
 	public:
+		static const int kRequireGradeSign;
+		static const int kRequireGradeExec;
+
 		RobotomyRequestForm( void );
 		RobotomyRequestForm( const RobotomyRequestForm &src );
 		RobotomyRequestForm( const std::string &target );
 		virtual ~RobotomyRequestForm( void );
-
-		RobotomyRequestForm &operator =( const RobotomyRequestForm &rhs );
 
 		virtual void execute( Bureaucrat const &executer ) const;
 };
