@@ -13,11 +13,11 @@ Base *generate(void)
 
     switch (class_type)
     {
-        case 1:
+        case 0:
             return (new A());
-        case 2:
+        case 1:
             return (new B());
-        case 3:
+        case 2:
             return (new C());
         default:
             break;

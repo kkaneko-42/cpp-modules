@@ -3,14 +3,14 @@ SRC_DIR := .
 INC_DIR := ./
 OBJ_DIR := ./objs
 DEPS 	:= $(OBJS:.o=.d)
-CC		:= c++
-FLAGS	:= -Wall -Wextra -Werror -std=c++98 -MMD -MP
+CXX		:= c++
+CXXFLAGS:= -Wall -Wextra -Werror -std=c++98 -MMD -MP -fsanitize=undefined -g3
 
 $(NAME): $(OBJ_DIR) $(OBJ_DIR)/main.o
-	$(CC) $(FLAGS) $(OBJ_DIR)/main.o -o $@
+	$(CXX) $(CXXFLAGS) $(OBJ_DIR)/main.o -o $@
 
 $(OBJ_DIR)/main.o: main.cpp
-	$(CC) $(FLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(OBJ_DIR):
 	mkdir -p $@
