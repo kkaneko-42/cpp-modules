@@ -1,23 +1,24 @@
 NAME	:= convert
-VPATH	:= ./src
-SRCS	:= main.cpp Weapon.cpp HumanA.cpp HumanB.cpp
+SRC_DIR	:= src
+SRCS	:= main.cpp Converter.cpp type_specify.cpp toFloat.cpp
 INC_DIR := ./include
 OBJ_DIR := ./objs
 OBJS	:= $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
 DEPS 	:= $(OBJS:.o=.d)
+VPATH	:= ./src
 CC		:= c++
 FLAGS	:= -Wall -Wextra -Werror -std=c++98 -MMD -MP
 
-$(NAME): $(OBJ_DIR) $(OBJS)
-	$(CC) $(FLAGS) $(OBJS) -o $@
-
-$(OBJ_DIR):
-	mkdir -p $@
+all: $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	$(CC) $(FLAGS) -c $< -o $@ -I $(INC_DIR)
 
-all: $(NAME)
+$(OBJ_DIR):
+	mkdir -p $@
+
+$(NAME): $(OBJ_DIR) $(OBJS)
+	$(CC) $(FLAGS) $(OBJS) -o $@ -I $(INC_DIR)
 
 clean:
 	rm -rf $(OBJ_DIR)
