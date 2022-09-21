@@ -6,11 +6,6 @@ static bool isDigit( char c )
     return ('0' <= c && c <= '9');
 }
 
-bool isChar( const std::string& input )
-{
-    return (input.size() <= 1);
-}
-
 bool isInt( const std::string& input )
 {
     std::size_t i;
@@ -82,4 +77,14 @@ bool isFloat( const std::string& input )
     }
 
     return (input[input.size() - 1] == 'f');
+}
+
+bool isChar( const std::string& input )
+{
+    return (
+        input.size() == 1
+        || isInt(input)
+        || isFloat(input)
+        || isDouble(input)
+    );
 }

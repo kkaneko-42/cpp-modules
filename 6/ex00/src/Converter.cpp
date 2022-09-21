@@ -1,12 +1,6 @@
 #include "Converter.hpp"
 
 const std::string kImpossibleMsg = "Impossible";
-/*
-static bool isPrintable( char c )
-{
-    return (' ' <= c && c <= '~');
-}
-*/
 
 Converter::Converter( void )
 { }
@@ -54,26 +48,4 @@ Converter::convert( const std::string& input ) {
     return (res);
 }
 
-char Converter::toChar( const std::string& input ) {
-    if (!isChar(input)) {
-        std::cout << kImpossibleMsg;
-        return ('\0');
-    }
-
-    if (!isPrintable(input[0])) {
-        std::cout << "Non displayable";
-        return ('\0');
-    }
-
-    return (static_cast<char>(input[0]));
-}
-
-double Converter::toDouble( const std::string& input ) {
-    if (!isDouble(input)) {
-        std::cout << kImpossibleMsg;
-        return (0.0);
-    }
-
-    return (0.0);
-}
 */

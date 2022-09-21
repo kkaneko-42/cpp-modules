@@ -1,38 +1,6 @@
 #include "Converter.hpp"
 #include <exception>
 
-// return true if a + b overflows
-template < class T >
-static bool overflowIfAdd(T a, T b)
-{
-    return (std::numeric_limits<T>::max() - b < a);
-}
-
-// return true if a * b overflows
-template < class T >
-static bool overflowIfMul(T a, T b)
-{
-    if (b == 0) {
-        return (false);
-    }
-
-    return (std::numeric_limits<T>::max() / b < a);
-}
-
-// return true if a + b underflows
-template < class T >
-static bool underflowIfAdd(T a, T b)
-{
-    return (std::numeric_limits<T>::min() - b > a);
-}
-
-// return true if a / b underflows
-template < class T >
-static bool underflowIfDiv(T a, T b)
-{
-    return (std::numeric_limits<T>::min() * b > a);
-}
-
 static float checkInfOrNan( const std::string& input ) {
     if (input == "-inff") {
         return (-std::numeric_limits<float>::infinity());

@@ -1,16 +1,33 @@
 #include "Converter.hpp"
 
-static int convertToInt( const std::string& input ) {
-    unsigned int 
+static int doConvert( const std::string& input ) {
+    int n = 0;
+    std::size_t i = (input[0] == '-' || input[1] == '+') ? 1 : 0;
+
+    while (i < input.size()) {
+        if (overflowIfMul<int>(n, 10)) {
+            throw std::overflow_error("toInt: overflow");
+        }
+        n *= 10;
+
+        int char_as_num = static_cast<int>(static_cast<char>(input[i] - '0'));
+        if (overflowIfAdd<int>(n, char_as_num)) {
+            throw std::overflow_error("toInt: overflow");
+        }
+        n += char_as_num;
+        ++i;
+    }
+
+    return (n);
 }
 
 int Converter::toInt( const std::string& input ) {
     int sgn = 1;
-    std::size_t i = 0;
-    unsigned int n = 0;
+    int n = 0;
 
     if (!isInt(input)) {
-        std::cout << kImpossibleMsg;
+        // std::cout << Converter::kImpossibleMsg;
+        std::cout << "Impossible";
         return (0);
     }
 
@@ -18,24 +35,15 @@ int Converter::toInt( const std::string& input ) {
     if (static_cast<char>(input[0]) == '-')
     {
         sgn = -1;
-        i = 1;
     }
 
     // convert
-    while (i < input.size()) {
-        if (overflowIfMul<unsigned int>(n, 10)) {
-            std::cout << kImpossibleMsg;
-            return (0);
-        }
-        n *= 10;
-
-        int char_as_num = static_cast<int>(static_cast<char>(input[i] - '0'));
-        if (overflowIfAdd<unsigned int>(n, char_as_num)) {
-            std::cout << kImpossibleMsg;
-            return (0);
-        }
-        n += char_as_num;
-        ++i;
+    try {
+        n = doConvert(input);
+    } catch (const std::exception& e) {
+        // std::cout << Converter::kImpossibleMsg;
+        std::cerr << e.what() << std::endl;
+        n = 0;
     }
 
     return (sgn * static_cast<int>(n));

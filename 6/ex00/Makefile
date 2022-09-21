@@ -1,6 +1,6 @@
 NAME	:= convert
 SRC_DIR	:= src
-SRCS	:= main.cpp Converter.cpp type_specify.cpp toFloat.cpp toDouble.cpp
+SRCS	:= main.cpp Converter.cpp type_specify.cpp toFloat.cpp toDouble.cpp toInt.cpp toChar.cpp
 INC_DIR := ./include
 OBJ_DIR := ./objs
 OBJS	:= $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
