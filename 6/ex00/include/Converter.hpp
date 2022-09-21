@@ -8,7 +8,7 @@
 // bool isChar( const std::string& input );
 // bool isInt( const std::string& input );
 bool isFloat( const std::string& input );
-// bool isDouble( const std::string& input );
+bool isDouble( const std::string& input );
 
 // Static class
 class Converter
@@ -44,7 +44,7 @@ class Converter
         // static char toChar( const std::string& input );
         // static int toInt( const std::string& input );
         static float toFloat( const std::string& input );
-        // static double toDouble( const std::string& input );
+        static double toDouble( const std::string& input );
 
     private:
         Converter( void );

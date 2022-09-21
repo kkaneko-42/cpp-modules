@@ -17,7 +17,7 @@ int main( int ac, char **av )
 	// std::cout << "char: " << ToChar(str) << std::endl;
 	// std::cout << "int: " << ToInt(str) << std::endl;
 	std::cout << "float: " << Converter::toFloat(str) << std::endl;
-	// std::cout << "double: " << ToDouble(str) << std::endl;
+	std::cout << "double: " << Converter::toDouble(str) << std::endl;
 	return (0);
 }
 
