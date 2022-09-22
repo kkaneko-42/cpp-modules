@@ -25,7 +25,7 @@ int main( void )
 	identify(&c);
 
 	std::cout << "=== About generating ===" << std::endl;
-	std::cout << "Actual: " << typeid(*someone).name() << std::endl;
+	// std::cout << "Actual: " << typeid(*someone).name() << std::endl;
 	std::cout << "My identify: ";
 	identify(*someone);
 	return (0);
