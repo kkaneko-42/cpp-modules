@@ -1,10 +1,22 @@
 #include "Converter.hpp"
 #include <exception>
 
+static std::string trimInput( const std::string& raw_input ) {
+    std::string trimmed = raw_input;
+
+    if (isInt(raw_input)) {
+        trimmed += ".0";
+    } else if (isFloat(raw_input)) {
+        trimmed.erase(trimmed.size() - 1);
+    }
+
+    return (trimmed);
+}
+
 static double checkInfOrNan( const std::string& input ) {
     if (input == "-inf") {
         return (-std::numeric_limits<double>::infinity());
-    } else if (input == "+inf") {
+    } else if (input == "+inf" || input == "inf") {
         return (std::numeric_limits<double>::infinity());
     } else if (input == "nan") {
         return (std::numeric_limits<double>::quiet_NaN());
@@ -33,33 +45,32 @@ static double convertIntegerPart( const std::string& integer_part ) {
 }
 
 static double convertDecimalPart( const std::string& decimal_part ) {
-    double res = 1;
+    double res = 0.0;
+    double char_as_double;
+    int decimal_place = 1;
 
-    for (std::size_t i = 0; i < decimal_part.size(); ++i) {
-        if (underflowIfDiv(res, 10.0)) {
-            throw std::underflow_error("toDouble: underflow");
+    for (std::size_t i = 0; i < decimal_part.size(); ++i, ++decimal_place) {
+        try {
+            char_as_double = static_cast<double>(decimal_part[i] - '0')
+                * ftPow<double>(10.0, -decimal_place);
+        } catch (const std::exception& e) {
+            throw;
         }
-        res /= 10;
-
-        double char_as_double = static_cast<double>(decimal_part[i] - '0');
-        if (underflowIfAdd(res, char_as_double)) {
-            throw std::underflow_error("toDouble: underflow");
-        }
+        
         res += char_as_double;
     }
 
-    return (res - 1.0);
+    return (res);
 }
 
-double Converter::toDouble( const std::string& input ) {
+double Converter::toDouble( const std::string& raw_input ) {
+    const std::string input = trimInput(raw_input);
     int sgn = 1;
     double res_integer = 0;
     double res_decimal = 0;
 
     if (!isDouble(input)) {
-        // std::cout << Converter::kImpossibleMsg;
-        std::cout << "Impossible";
-        return (0.0f);
+        throw std::logic_error(Converter::kImpossibleMsg);
     }
     if (checkInfOrNan(input)) {
         return (checkInfOrNan(input));

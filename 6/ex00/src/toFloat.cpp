@@ -1,13 +1,26 @@
 #include "Converter.hpp"
 #include <exception>
+#include <cmath>
+
+static std::string trimInput( const std::string& raw_input ) {
+    std::string trimmed = raw_input;
+
+    if (isInt(raw_input)) {
+        trimmed += ".0f";
+    } else if (isDouble(raw_input)) {
+        trimmed += "f";
+    }
+
+    return (trimmed);
+}
 
 static float checkInfOrNan( const std::string& input ) {
     if (input == "-inff") {
         return (-std::numeric_limits<float>::infinity());
-    } else if (input == "+inff") {
+    } else if (input == "+inff" || input == "inff") {
         return (std::numeric_limits<float>::infinity());
-    } else if (input == "nan") {
-        return (std::numeric_limits<float>::quiet_NaN());
+    } else if (input == "nanf") {
+        return (std::numeric_limits<float>::signaling_NaN());
     } else {
         return (0.0f);
     }
@@ -18,13 +31,13 @@ static float convertIntegerPart( const std::string& integer_part ) {
 
     for (std::size_t i = 0; i < integer_part.size(); ++i) {
         if (overflowIfMul<float>(res, 10)) {
-            throw std::overflow_error("toFloat: overflow");
+            throw std::overflow_error("overflow");
         }
         res *= 10;
 
         float char_as_float = static_cast<float>(integer_part[i] - '0');
         if (overflowIfAdd<float>(res, char_as_float)) {
-            throw std::overflow_error("toFloat: overflow");
+            throw std::overflow_error("overflow");
         }
         res += char_as_float;
     }
@@ -33,33 +46,32 @@ static float convertIntegerPart( const std::string& integer_part ) {
 }
 
 static float convertDecimalPart( const std::string& decimal_part ) {
-    float res = 1;
+    float res = 0.0f;
+    float char_as_float;
+    int decimal_place = 1;
 
-    for (std::size_t i = 0; i < decimal_part.size(); ++i) {
-        if (underflowIfDiv(res, 10.0f)) {
-            throw std::underflow_error("toFloat: underflow");
+    for (std::size_t i = 0; i < decimal_part.size(); ++i, ++decimal_place) {
+        try {
+            char_as_float = static_cast<float>(decimal_part[i] - '0')
+                * ftPow<float>(10.0f, -decimal_place);
+        } catch (const std::exception& e) {
+            throw;
         }
-        res /= 10;
-
-        float char_as_float = static_cast<float>(decimal_part[i] - '0');
-        if (underflowIfAdd(res, char_as_float)) {
-            throw std::underflow_error("toFloat: underflow");
-        }
+        
         res += char_as_float;
     }
 
-    return (res - 1.0f);
+    return (res);
 }
 
-float Converter::toFloat( const std::string& input ) {
+float Converter::toFloat( const std::string& raw_input ) {
+    const std::string input = trimInput(raw_input);
     int sgn = 1;
     float res_integer = 0;
     float res_decimal = 0;
 
     if (!isFloat(input)) {
-        // std::cout << Converter::kImpossibleMsg;
-        std::cout << "Impossible";
-        return (0.0f);
+        throw std::logic_error(Converter::kImpossibleMsg);
     }
     if (checkInfOrNan(input)) {
         return (checkInfOrNan(input));
@@ -80,15 +92,12 @@ float Converter::toFloat( const std::string& input ) {
             input.substr(point_pos + 1, input.size() - point_pos - 2)
         );
     } catch(const std::exception& e) {
-        std::cerr << e.what() << std::endl;
-        res_integer = 0.0f;
-        res_decimal = 0.0f;
+        throw;
     }
 
     // check overflow
     if (overflowIfAdd<float>(res_integer, res_decimal)) {
-        std::cerr << "toFloat: overflow" << std::endl;
-        return (0.0f);
+        throw std::overflow_error("overflow");
     }
 
     return (sgn * (res_integer + res_decimal));

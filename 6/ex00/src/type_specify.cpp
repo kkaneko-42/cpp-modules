@@ -34,7 +34,7 @@ bool isDouble( const std::string& input )
     std::string right_of_point;
 
     // inf, nan
-    if (input == "-inf" || input == "+inf" || input == "nan")
+    if (input == "-inf" || input == "+inf" || input == "inf" || input == "nan")
     {
         return (true);
     }
@@ -58,7 +58,7 @@ bool isFloat( const std::string& input )
     std::string right_of_point;
 
     // inf, nan
-    if (input == "-inff" || input == "+inff" || input == "nanf")
+    if (input == "-inff" || input == "+inff" || input == "inff" || input == "nanf")
     {
         return (true);
     }
@@ -81,10 +81,5 @@ bool isFloat( const std::string& input )
 
 bool isChar( const std::string& input )
 {
-    return (
-        input.size() == 1
-        || isInt(input)
-        || isFloat(input)
-        || isDouble(input)
-    );
+    return (input.size() == 1);
 }

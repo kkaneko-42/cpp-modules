@@ -9,7 +9,6 @@ bool isChar( const std::string& input );
 bool isInt( const std::string& input );
 bool isFloat( const std::string& input );
 bool isDouble( const std::string& input );
-
 // Static class
 class Converter
 {
@@ -24,7 +23,7 @@ class Converter
 
         typedef enum
         {
-            CHAR,
+            CHAR = 0,
             INT,
             FLOAT,
             DOUBLE,
@@ -38,9 +37,10 @@ class Converter
         }   Result;
 
         static const std::string kImpossibleMsg;
+        static const std::string kNotPrintableMsg;
 
-        // static eType typeOf( const std::string& input );
-        // static Result convert( const std::string& input );
+        static eType typeOf( const std::string& input );
+        static Result convert( const std::string& input );
         static char toChar( const std::string& input );
         static int toInt( const std::string& input );
         static float toFloat( const std::string& input );
@@ -49,6 +49,9 @@ class Converter
     private:
         Converter( void );
 };
+
+std::ostream& operator<<( std::ostream& os, const Converter::Result &res );
+std::ostream& operator<<( std::ostream& os, const Converter::eType type );
 
 // return true if a + b overflows
 template < class T >
@@ -80,6 +83,32 @@ template < class T >
 static bool underflowIfDiv(T a, T b)
 {
     return (std::numeric_limits<T>::min() * b > a);
+}
+
+// cal a^b
+template < class T >
+static T ftPow(T a, int b) {
+    T res = 1;
+
+    if (a == 0) {
+        return (0);
+    }
+
+    while (b > 0) {
+        if (overflowIfMul<T>(res, a)) {
+            throw std::overflow_error("overflow");
+        }
+        res *= a;
+        --b;
+    }
+    while (b < 0) {
+        if (underflowIfDiv<T>(res, a)) {
+            throw std::underflow_error("underflow");
+        }
+        res /= a;
+        ++b;
+    }
+    return (res);
 }
 
 #endif

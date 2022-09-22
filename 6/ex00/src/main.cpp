@@ -14,10 +14,38 @@ int main( int ac, char **av )
 	}
 
 	std::string str = av[1];
-	std::cout << "char: " << Converter::toChar(str) << std::endl;
-	std::cout << "int: " << Converter::toInt(str) << std::endl;
-	std::cout << "float: " << Converter::toFloat(str) << std::endl;
-	std::cout << "double: " << Converter::toDouble(str) << std::endl;
+    std::cout << "=== Literal: \"" << str << "\" ===" << std::endl;
+    std::cout << "type: " << Converter::typeOf(str) << std::endl;
+    std::cout << "convert: " << Converter::convert(str) << std::endl;
+
+	std::cout << "as char: ";
+    try {
+        std::cout << Converter::toChar(str) << std::endl;
+    } catch(const std::exception& e) {
+        std::cout << e.what() << std::endl;
+    }
+
+	std::cout << "as int: ";
+    try {
+        std::cout << Converter::toInt(str) << std::endl;
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+    }
+
+	std::cout << "as float: ";
+    try {
+        std::cout << Converter::toFloat(str) << std::endl;
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+    }
+
+	std::cout << "as double: ";
+    try {
+        std::cout << Converter::toDouble(str) << std::endl;
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+    }
+
 	return (0);
 }
 
