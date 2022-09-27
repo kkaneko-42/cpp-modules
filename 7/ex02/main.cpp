@@ -29,6 +29,7 @@ int main(int, char**)
             return 1;
         }
     }
+    std::cout << "==== index is out of range test ====" << std::endl;
     try
     {
         numbers[-2] = 0;
@@ -53,3 +54,5 @@ int main(int, char**)
     delete [] mirror;//
     return 0;
 }
+
+

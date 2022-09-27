@@ -5,17 +5,17 @@ INC_DIR := ./
 OBJ_DIR := ./objs
 OBJS	:= $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
 DEPS 	:= $(OBJS:.o=.d)
-CC		:= c++
-FLAGS	:= -Wall -Wextra -Werror -std=c++98 -MMD -MP
+CXX		:= c++
+CXXFLAGS:= -Wall -Wextra -Werror -std=c++98 -MMD -MP
 
 $(NAME): $(OBJ_DIR) $(OBJS)
-	$(CC) $(FLAGS) $(OBJS) -o $@
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $@
 
 $(OBJ_DIR):
 	mkdir -p $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
-	$(CC) $(FLAGS) -c $< -o $@ -I $(INC_DIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -I $(INC_DIR)
 
 all: $(NAME)
 

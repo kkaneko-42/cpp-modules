@@ -1,5 +1,5 @@
-#ifndef TEMPLATES_HPP
-#define TEMPLATES_HPP
+#ifndef WHATEVER_HPP
+#define WHATEVER_HPP
 
 template <class T>
 void swap(T &a, T &b)
@@ -29,4 +29,4 @@ T &max(T &a, T &b)
 		return (b);
 }
 
-#endif //TEMPLATES_HPP
+#endif //WHATEVER_HPP
