@@ -8,13 +8,16 @@ template <class T>
 class MutantStack : public std::stack<T>
 {
 	public:
-		typedef typename std::stack<T>::container_type::iterator iterator;
+		typedef typename std::deque<T>::iterator iterator;
 
-		iterator begin( void ) {return (this->c.begin());}
-		iterator end( void ) {return (this->c.end());}
+        MutantStack( void ): std::stack<T>() {}
+        MutantStack( const MutantStack& other ): std::stack<T>() {
+            *this = other;
+        }
+        ~MutantStack() {}
 
-	private:
-		typename std::stack<T>::container_type c;
+		iterator begin( void ) { return (this->c.begin()); }
+		iterator end( void ) { return (this->c.end()); }
 };
 
 #endif //MUTANTSTACK_HPP

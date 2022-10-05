@@ -2,13 +2,15 @@
 #define SPAN_HPP
 
 #include <stdexcept>
+#include <vector>
 
 class Span
 {
 	public:
-		Span( void );
+        typedef unsigned int size_type;
+
+        Span( unsigned int n = 0 ); // wraping default constructor
 		Span( const Span &src );
-		Span( unsigned int n );
 		virtual ~Span( void );
 
 		Span &operator =( const Span &rhs );
@@ -16,12 +18,25 @@ class Span
 		unsigned int getSize( void ) const;
 
 		void addNumber( int number );
+
+        template <class InputIt>
+        void addNumber( InputIt start, InputIt end ) {
+            if (current_size_ + (end - start) > max_size_) {
+                throw std::logic_error("Span assignation: size not enought");
+            }
+            
+            for (InputIt it = start; it != end; ++it) {
+                values_[current_size_] = *it;
+                ++current_size_;
+            }
+        }
+
 		unsigned int shortestSpan( void ) const;
 		unsigned int longestSpan( void ) const;
 	
 	private:
-		unsigned int now_size_;
-		unsigned int size_;
+        const unsigned int max_size_;
+		unsigned int current_size_;
 		int *values_;
 };
 
