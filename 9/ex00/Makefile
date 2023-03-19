@@ -1,5 +1,5 @@
 NAME	:= btc
-SRCS	:= main.cpp BitcoinExchange.cpp Database.cpp
+SRCS	:= main.cpp BitcoinExchange.cpp Date.cpp utils.cpp
 SRC_DIR := ./src
 INC_DIR := ./include
 OBJ_DIR := ./objs
@@ -27,6 +27,9 @@ fclean: clean
 
 re: fclean all
 
+test:
+	make && ./$(NAME) input.txt
+
 -include $(DEPS)
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re test
