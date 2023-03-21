@@ -1,13 +1,12 @@
 #pragma once
 
 #include <string>
-#include <cstdint>
 #include <ostream>
 
 struct Date {
-    typedef uint16_t Year;
-    typedef uint16_t Month;
-    typedef uint16_t Day;
+    typedef unsigned short Year;
+    typedef unsigned short Month;
+    typedef unsigned short Day;
 
     Date(const std::string& str = "0000-00-00");
     Date(const Date& other);

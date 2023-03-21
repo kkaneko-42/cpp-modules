@@ -7,7 +7,7 @@ const std::string BitcoinExchange::kUsage = "usage: ./btc <filename>";
 const BitcoinExchange::ExchangeRate BitcoinExchange::kHavingMax = 1000;
 
 bool BitcoinExchange::exchange(const KeyValueStore<Date, ExchangeRate>& db, const std::string& input_file) {
-    std::ifstream ifs(input_file);
+    std::ifstream ifs(input_file.c_str());
 
     if (!ifs) {
         return false;

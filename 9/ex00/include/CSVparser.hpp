@@ -13,7 +13,7 @@ public:
         std::string& value_title,
         std::map<KeyType, ValueType>& data
     ) {
-        std::ifstream ifs(filepath);
+        std::ifstream ifs(filepath.c_str());
 
         if (!ifs) {
             return false;
